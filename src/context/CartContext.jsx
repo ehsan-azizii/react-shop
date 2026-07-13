@@ -1,10 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useState,useContext } from "react";
+import SnackbarContext from "./SnackbarContext";
 const CartContext=createContext();
+
 
 export function  CartProvider({children}){
     const [cart,setCart]=useState([]);
-    const [snackbarOpen,setSnackbarOpen]=useState(false);
-    const [snackbarMessage,setSnackbarMessage]=useState("");
+    const {showSnackbar}=useContext(SnackbarContext)
+    
 
 
     function addToCart(product){
@@ -34,8 +36,7 @@ export function  CartProvider({children}){
             })
             setCart(newCart)
         }
-        setSnackbarMessage(`${product.name} added to cart`);
-        setSnackbarOpen(true);
+        showSnackbar(`${product.name} added to cart`)
 
     }
     function decreaseQuantity(id) {
@@ -61,17 +62,13 @@ export function  CartProvider({children}){
 }
    function removeFromCart(id){
         setCart(cart.filter((item) => item.id !== id));
-        setSnackbarMessage("item removed from cart");
-        setSnackbarOpen(true);
+        showSnackbar("item removed from cart")
    }
     return(
         <CartContext.Provider
             value={{
                 cart,
                 addToCart,
-                snackbarOpen,
-                setSnackbarOpen,
-                snackbarMessage,
                 decreaseQuantity,
                 removeFromCart,
 

@@ -6,6 +6,7 @@ import {
     Typography,
     Box,
     IconButton,
+    Button,
     Badge,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
@@ -57,6 +58,13 @@ function NavBar(){
                 >
                     Home
                 </Typography>
+                <Button 
+                component={Link}
+                to="/login"
+                color="inherit">
+
+                LogIn
+                </Button>
             </Box>
                 <IconButton
                 component={Link}
@@ -71,6 +79,7 @@ function NavBar(){
                         <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
+            
             </Toolbar>
         </AppBar>
     );

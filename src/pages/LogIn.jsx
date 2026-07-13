@@ -1,12 +1,17 @@
 
 import { Container,TextField,Button } from "@mui/material"
-import { useState } from "react"
-import axios from "axios";
+import { useState,useContext } from "react"
+import { login } from "../api/authApi"
+import SnackbarContext from "../context/SnackbarContext"
+
 function LogIn(){
-    const [formData,setFormData]=useState({
+
+    const initialFormData={
         username:"",
-        password:""
-    })
+        password:"",
+    }
+    const [formData,setFormData]=useState(initialFormData)
+    const {showSnackbar}=useContext(SnackbarContext)
     function handleChange(e) {
     const { name, value } = e.target;
 
@@ -19,9 +24,11 @@ function LogIn(){
     e.preventDefault();
 
     try {
-        const response = await login(formData);
-
-        console.log(response);
+        const {data} = await login(formData);
+        localStorage.setItem("access",data.access)
+        setFormData(initialFormData)
+        showSnackbar("Login successful!")
+        
     } catch (error) {
         console.error(error);
     }
