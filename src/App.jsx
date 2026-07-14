@@ -4,7 +4,7 @@ import ProductDetail from './pages/ProductDetail';
 import NavBar from './components/NavBar';
 import Cart from './pages/Cart';
 import LogIn from './pages/LogIn';
-import CartSnackbar from './components/CartSnackbar';
+
 function App() {
   return (
   <>
@@ -28,7 +28,6 @@ function App() {
       element={<LogIn />}
       />
     </Routes>
-    <CartSnackbar/>
   </>
          
   );

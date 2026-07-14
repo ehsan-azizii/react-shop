@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from 'react-router-dom';
+import {getProducts,getCategories} from '../api/productApi'
 import {
     Container,
     Grid,
@@ -24,40 +24,47 @@ function ProductList() {
     const [search, setSearch] = useState("");
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("");
-
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        axios
-            .get("http://127.0.0.1:8000/api/categories/")
-            .then((res) => {
-                setCategories(res.data.results);
-            })
-            .catch((err) => console.log(err));
+         async function fetchCategories() {
+        try {
+            const data = await getCategories();
+            setCategories(data.results);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    fetchCategories();
     }, []);
 
    
     useEffect(() => {
         const timer = setTimeout(() => {
-            const params = {
-                search: search,
-                page: page,
-            };
+            async function fetchProducts() {
+            try {
+                const params = {
+                    search,
+                    page,
+                };
 
-            if (selectedCategory) {
-                params.category = selectedCategory;
+                if (selectedCategory) {
+                    params.category = selectedCategory;
+                }
+
+                const data = await getProducts(params);
+
+                setProducts(data.results);
+                setNextPage(data.next);
+                setPrevPage(data.previous);
+                console.log(data)
+            } catch (err) {
+                console.log(err);
             }
+        }
 
-            axios
-                .get("http://127.0.0.1:8000/api/products/", {
-                    params,
-                })
-                .then((res) => {
-                    setProducts(res.data.results);
-                    setNextPage(res.data.next);
-                    setPrevPage(res.data.previous);
-                })
-                .catch((err) => console.log(err));
+        fetchProducts();
         }, 400);
 
         return () => clearTimeout(timer);

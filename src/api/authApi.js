@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./apiClient"
 export async function login(formData){
-    return axios.post("http://127.0.0.1:8000/api/token/",formData)
+    return api.post("/token/",formData)
 }

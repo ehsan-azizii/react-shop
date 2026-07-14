@@ -36,7 +36,7 @@ export function  CartProvider({children}){
             })
             setCart(newCart)
         }
-        showSnackbar(`${product.name} added to cart`)
+        showSnackbar(`${product.name} added to cart`,"success")
 
     }
     function decreaseQuantity(id) {
@@ -62,7 +62,7 @@ export function  CartProvider({children}){
 }
    function removeFromCart(id){
         setCart(cart.filter((item) => item.id !== id));
-        showSnackbar("item removed from cart")
+        showSnackbar("item removed from cart","success")
    }
     return(
         <CartContext.Provider

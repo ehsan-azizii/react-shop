@@ -3,6 +3,7 @@ import { Container,TextField,Button } from "@mui/material"
 import { useState,useContext } from "react"
 import { login } from "../api/authApi"
 import SnackbarContext from "../context/SnackbarContext"
+import { useNavigate } from "react-router-dom"
 
 function LogIn(){
 
@@ -12,8 +13,10 @@ function LogIn(){
     }
     const [formData,setFormData]=useState(initialFormData)
     const {showSnackbar}=useContext(SnackbarContext)
+    const navigate= useNavigate()
     function handleChange(e) {
     const { name, value } = e.target;
+    
 
     setFormData((prev) => ({
         ...prev,
@@ -24,13 +27,21 @@ function LogIn(){
     e.preventDefault();
 
     try {
+        console.log(formData)
         const {data} = await login(formData);
         localStorage.setItem("access",data.access)
+        localStorage.setItem("refresh",data.refresh)
         setFormData(initialFormData)
-        showSnackbar("Login successful!")
-        
+        showSnackbar("Login successful!","success")
+        navigate("/")
     } catch (error) {
-        console.error(error);
+        if (error.response?.status === 401) {
+            showSnackbar("Invalid username or password","error")
+        } else{
+            showSnackbar("Something went wrong. Please try again later","error")
+
+            }
+        
     }
 }
     return(

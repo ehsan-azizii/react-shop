@@ -16,8 +16,8 @@ createRoot(document.getElementById('root')).render(
       <CssBaseline/>
       <SnackbarProvider>
         <CartProvider>
-          <App />
-       </CartProvider>
+            <App />
+        </CartProvider>
       </SnackbarProvider>
     </ThemeProvider>
   </BrowserRouter>

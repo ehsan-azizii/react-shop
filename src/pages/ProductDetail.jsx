@@ -1,5 +1,5 @@
 import { useEffect,useState,useContext } from "react";
-import axios from "axios";
+import { getProduct } from "../api/productApi";
 import { useParams } from "react-router-dom";
 import {
     Container,
@@ -17,16 +17,18 @@ function ProductDetail(){
     const {id}=useParams()
     const [product, setProduct]=useState(null)
 
-    useEffect(()=>{
-        axios
-        .get(`http://127.0.0.1:8000/api/products/${id}/`)
-        .then((res)=>{
-            setProduct(res.data);
-        })
-        .catch((err)=>{
+    useEffect(() => {
+    async function fetchProduct() {
+        try {
+            const data = await getProduct(id);
+            setProduct(data);
+        } catch (err) {
             console.log(err);
-        });
-    },[id])
+        }
+    }
+
+    fetchProduct();
+}, [id]);
     if (!product){
         return <h2>Loading...</h2>
     }

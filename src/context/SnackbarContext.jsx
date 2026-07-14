@@ -6,10 +6,12 @@ const SnackbarContext = createContext();
 export function SnackbarProvider({ children }) {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
+    const [severity, setSeverity] = useState("success");
 
-    function showSnackbar(message) {
+    function showSnackbar(message,severity="success") {
         setMessage(message);
         setOpen(true);
+        setSeverity(severity);
     }
 
     function handleClose() {
@@ -28,7 +30,7 @@ export function SnackbarProvider({ children }) {
                 onClose={handleClose}
             >
                 <Alert
-                    severity="success"
+                    severity={severity}
                     onClose={handleClose}
                 >
                     {message}
