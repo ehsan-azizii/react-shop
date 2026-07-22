@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useContext } from "react"
 import {
     AppBar,
@@ -11,10 +11,20 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import CartContext from "../context/CartContext";
+import AuthContext from "../context/AuthContext";
+import SnackbarContext from "../context/SnackbarContext";
 
 function NavBar(){
     const {cart}=useContext(CartContext);
+    const { isAuthenticated, logOut } = useContext(AuthContext);
+    const {showSnackbar}=useContext(SnackbarContext);
+    const navigate = useNavigate()
 
+    function handleLogout(){
+        logOut();
+        navigate("/")
+        showSnackbar("you are logOut successfuly!","succes")
+    }
     const totalItems=cart.reduce((total,item)=>{
         return total + item.quantity
     },0);
@@ -58,13 +68,21 @@ function NavBar(){
                 >
                     Home
                 </Typography>
-                <Button 
-                component={Link}
-                to="/login"
-                color="inherit">
-
-                LogIn
-                </Button>
+               {
+                    isAuthenticated ? (
+                        <Button color="inherit" onClick={handleLogout}>
+                            Logout
+                        </Button>
+                    ) : (
+                        <Button
+                            color="inherit"
+                            component={Link}
+                            to="/login"
+                        >
+                            Login
+                        </Button>
+                    )
+                }
             </Box>
                 <IconButton
                 component={Link}

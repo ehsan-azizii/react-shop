@@ -1,4 +1,4 @@
-import { createContext, useState,useContext } from "react";
+import { createContext, useState, useContext } from "react";
 import SnackbarContext from "./SnackbarContext";
 const CartContext=createContext();
 
@@ -7,8 +7,6 @@ export function  CartProvider({children}){
     const [cart,setCart]=useState([]);
     const {showSnackbar}=useContext(SnackbarContext)
     
-
-
     function addToCart(product){
         console.log(cart)
         const existingProduct = cart.find(

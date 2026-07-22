@@ -4,6 +4,7 @@ import ProductDetail from './pages/ProductDetail';
 import NavBar from './components/NavBar';
 import Cart from './pages/Cart';
 import LogIn from './pages/LogIn';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
        <Route
       path='/login'
       element={<LogIn />}
+      />
+       <Route
+      path='/profile'
+      element={<Profile />}
       />
     </Routes>
   </>
