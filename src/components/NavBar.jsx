@@ -22,8 +22,8 @@ function NavBar(){
 
     function handleLogout(){
         logOut();
+        showSnackbar("logOut successfuly!","success")
         navigate("/")
-        showSnackbar("you are logOut successfuly!","succes")
     }
     const totalItems=cart.reduce((total,item)=>{
         return total + item.quantity
