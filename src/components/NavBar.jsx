@@ -68,6 +68,16 @@ function NavBar(){
                 >
                     Home
                 </Typography>
+                <Typography
+                component={Link}
+                to="/profile"
+                sx={{
+                    textDecoration:"none",
+                    color:"inherit"
+                }}
+                >
+                    Profile
+                </Typography>
                {
                     isAuthenticated ? (
                         <Button color="inherit" onClick={handleLogout}>

@@ -58,7 +58,6 @@ function ProductList() {
                 setProducts(data.results);
                 setNextPage(data.next);
                 setPrevPage(data.previous);
-                console.log(data)
             } catch (err) {
                 console.log(err);
             }

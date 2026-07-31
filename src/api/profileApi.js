@@ -5,3 +5,8 @@ export async function getProfile() {
     return data;
     
 }
+export async function updateProfile(profileData) {
+    const { data } = await api.patch("/profile/",profileData);
+    return data;
+    
+}

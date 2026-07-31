@@ -15,7 +15,7 @@ import CartContext from "../context/CartContext";
 function ProductCard({ product }) {
     const { addToCart }=useContext(CartContext)
     return (
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid xs={12} sm={6} md={4}>
             
                 <Card
                     sx={{

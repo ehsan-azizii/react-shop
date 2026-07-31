@@ -1,66 +1,74 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Container, 
+    Container,
     Card,
     CardContent,
     Avatar,
+    Typography,
     Stack,
     Button,
-    Typography
 } from "@mui/material";
-import ProfileItem from "../components/ProfileItem";
+
 import AuthContext from "../context/AuthContext";
-export default function Profile(){
-    const {user}=useContext(AuthContext)
-    const navigate= useNavigate();
-    
+import ProfileItem from "../components/ProfileItem";
+
+export default function Profile() {
+    const { user } = useContext(AuthContext);
+    console.log("user",user)
+    const navigate = useNavigate();
+
     if (!user) return <h2>Loading...</h2>;
 
-    return(
-        <Container maxWidth="sm" sx={{mt:5,}}>
-            <Card elevation={5}sx={{borderRadius:3}}>
+    return (
+        <Container maxWidth="sm" sx={{ mt: 5 }}>
+            <Card elevation={5} sx={{ borderRadius: 3 }}>
                 <CardContent>
-                    <Stack spacing={2}
-                     alignItems="center"
-                     >
-                            <Avatar
-                                sx={{
-                                    width: 90,
-                                    height: 90,
-                                }}
-                            />
-                            <Typography variant="h5">
-                                {user.first_name || user.last_name
-                                    ? `${user.first_name} ${user.last_name}`
-                                    : user.username}
-                            </Typography>
 
-                            <ProfileItem
-                                label="Email"
-                                value={user.email}
-                            />
+                   
+                    <Stack spacing={2} alignItems="center" sx={{ mb: 3 }}>
 
-                            <ProfileItem
-                                label="Phone"
-                                value={user.phone}
-                            />
+                        <Avatar
+                            sx={{
+                                width: 90,
+                                height: 90,
+                            }}
+                        />
 
-                            <ProfileItem
-                                label="Address"
-                                value={user.address}
-                            />        
-                            <Button
-                            variant="contained"
-                            sx={{ mt: 2 }}
-                            onClick={() => navigate("/profile/edit")}
-                        >
-                            Edit Profile
-                    </Button> 
+                        <Typography variant="h5">
+                            {user.first_name || user.last_name
+                                ? `${user.first_name} ${user.last_name}`
+                                : user.username}
+                        </Typography>
+
+                        <Typography color="text.secondary">
+                            @{user.username}
+                        </Typography>
+
                     </Stack>
+
+                   
+                    <ProfileItem
+                        label="Email"
+                        value={user.email}
+                    />
+
+                    <ProfileItem
+                        label="Address"
+                        value={user.profile?.address}
+                    />
+
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{ mt: 2 }}
+                        onClick={() => navigate("/profile/edit")}
+                    >
+                        Edit Profile
+                    </Button>
+
                 </CardContent>
             </Card>
         </Container>
-                
     );
 }

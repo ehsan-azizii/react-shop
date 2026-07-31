@@ -5,6 +5,8 @@ import NavBar from './components/NavBar';
 import Cart from './pages/Cart';
 import LogIn from './pages/LogIn';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -30,8 +32,17 @@ function App() {
       />
        <Route
       path='/profile'
-      element={<Profile />}
+      element={
+      <ProtectedRoute>
+      <Profile />
+      </ProtectedRoute>
+      }
       />
+      <Route path="/profile/edit"
+      element={ 
+      <ProtectedRoute>
+      <EditProfile />
+      </ProtectedRoute>} />
     </Routes>
   </>
          
