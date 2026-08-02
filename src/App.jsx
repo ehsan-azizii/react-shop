@@ -7,6 +7,7 @@ import LogIn from './pages/LogIn';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import ProtectedRoute from './components/ProtectedRoute';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -43,6 +44,10 @@ function App() {
       <ProtectedRoute>
       <EditProfile />
       </ProtectedRoute>} />
+       <Route
+      path='/Register'
+      element={<Register />}
+      />
     </Routes>
   </>
          

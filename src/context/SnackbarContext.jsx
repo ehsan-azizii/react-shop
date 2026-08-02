@@ -32,6 +32,7 @@ export function SnackbarProvider({ children }) {
                 <Alert
                     severity={severity}
                     onClose={handleClose}
+                    sx={{whiteSpace:'pre-line'}}
                 >
                     {message}
                 </Alert>

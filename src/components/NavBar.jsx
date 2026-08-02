@@ -68,31 +68,47 @@ function NavBar(){
                 >
                     Home
                 </Typography>
-                <Typography
-                component={Link}
-                to="/profile"
-                sx={{
-                    textDecoration:"none",
-                    color:"inherit"
-                }}
-                >
-                    Profile
-                </Typography>
-               {
-                    isAuthenticated ? (
-                        <Button color="inherit" onClick={handleLogout}>
-                            Logout
-                        </Button>
-                    ) : (
-                        <Button
-                            color="inherit"
-                            component={Link}
-                            to="/login"
-                        >
-                            Login
-                        </Button>
-                    )
-                }
+                {
+            isAuthenticated ? (
+                <>
+                    <Typography
+                        component={Link}
+                        to="/profile"
+                        sx={{
+                            textDecoration:"none",
+                            color:"inherit"
+                        }}
+                    >
+                        Profile
+                    </Typography>
+
+                    <Button 
+                        color="inherit" 
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                </>
+            ) : (
+                <>
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to="/login"
+                    >
+                        Login
+                    </Button>
+
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to="/register"
+                    >
+                        Register
+                    </Button>
+                </>
+            )
+        }
             </Box>
                 <IconButton
                 component={Link}
