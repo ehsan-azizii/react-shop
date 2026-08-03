@@ -7,6 +7,7 @@ export function AuthProvider({children}){
 
     const [user,setUser]=useState(null)
     const [isAuthenticated,setIsAuthenticated]=useState(false)
+    const [loading,setLoading]=useState(true)
 
    useEffect(() => {
     async function loadUser() {
@@ -15,15 +16,24 @@ export function AuthProvider({children}){
 
         if (!token) {
             console.log("No token");
+            setLoading(false)
             return;
         }
 
         try {
+
             const profile = await getProfile();
             setUser(profile);
             setIsAuthenticated(true);
+
         } catch (error) {
+
             console.log("Error:", error);
+            setUser(null)
+            setIsAuthenticated(false)
+        }
+        finally{
+            setLoading(false);
         }
     }
 
@@ -53,9 +63,11 @@ export function AuthProvider({children}){
         value={{
             isAuthenticated,
             user,
+            loading,
             logIn,
             logOut,
-            updateUser,    }}
+            updateUser, 
+           }}
         >
             {children}
         </AuthContext.Provider>
