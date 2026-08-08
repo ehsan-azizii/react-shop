@@ -1,38 +1,56 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { getCart } from "../api/cartApi";
 import { Link } from "react-router-dom";
-import { Button,
+import {
+    Button,
     Container,
     Typography,
     Box,
- } from "@mui/material";
+} from "@mui/material";
+
 import CartContext from "../context/CartContext";
 import CartItem from "../components/CartItem";
+
 function Cart() {
-    const {cart} =useContext(CartContext);
-    const totalPrice=cart.reduce((total,item)=>{
-        return total + Number(item.price)*item.quantity
-    },0)
-    if (cart.length===0){
-        return(
-            <Container sx={{py:4}}>
-                <Typography
-                    variant="h5"
-                    gutterBottom
-                    >
-                        Your cart is empty!
+    const { cart } = useContext(CartContext);
+
+    const totalPrice = cart.reduce((total, item) => {
+        return (
+            total +
+            Number(item.product_details.price) * Number(item.quantity)
+        );
+    }, 0);
+
+    useEffect(() => {
+        async function loadCart() {
+            const data = await getCart();
+            console.log("GET CART:", data);
+        }
+
+        loadCart();
+    }, []);
+
+    if (cart.length === 0) {
+        return (
+            <Container sx={{ py: 4, textAlign: "center" }}>
+                <Typography variant="h5" sx={{ mb: 3 }}>
+                    Your cart is empty!
                 </Typography>
-                <Button 
+
+                <Button
                     variant="contained"
-                    color="primary"
                     component={Link}
-                    to="/">
-                        Continue Shopping🛒
+                    to="/"
+                >
+                    Continue Shopping 🛒
                 </Button>
             </Container>
         );
     }
-    return ( 
+
+    return (
         <Container sx={{ py: 4 }}>
+
             {cart.map((item) => (
                 <CartItem
                     key={item.id}
@@ -56,12 +74,9 @@ function Cart() {
                     Checkout
                 </Button>
             </Box>
-        </Container>
-      
-        )
 
-        
-    
+        </Container>
+    );
 }
 
 export default Cart;

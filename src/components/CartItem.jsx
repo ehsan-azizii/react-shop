@@ -13,8 +13,13 @@ import CartContext from "../context/CartContext";
 
 
 function CartItem({ item }) {
-    const {addToCart, decreaseQuantity,removeFromCart}=useContext(CartContext);
-    const subtotal = Number(item.price)*item.quantity;
+    const {addToCart, decreaseQuantity,deleteCartItem}=useContext(CartContext);
+    console.log("sub",item.subtotal)
+    console.log("CART ITEM:", item);
+    console.log("Price:", item.product_details.price);
+    console.log("QUANTITY:", item.quantity);
+    console.log("PRODUCT:", item.product);
+
     return (
        <Card sx={{ mb: 2 }}>
     <Stack
@@ -25,8 +30,8 @@ function CartItem({ item }) {
     >
         <Box
     component="img"
-    src={item.image}
-    alt={item.name}
+    src={`http://127.0.0.1:8000${item.product_details.image}`}
+    alt={item.product_details.name}
     sx={{
         width: 120,
         height: 120,
@@ -39,20 +44,23 @@ function CartItem({ item }) {
         flexDirection:"column",
         gap:1,
      }}>
-        <Typography
+    <Typography
         variant="h6"
         fontWeight="bold">
-        {item.name}
+        {item.product_details.name}
     </Typography>
     <Typography>
-       Price: ${item.price}
+    Category: {item.product_details.category.name}
     </Typography>
     <Typography>
-       subtotal: ${subtotal}
+       Price: ${item.product_details.price}
+    </Typography>
+    <Typography>
+       subtotal: ${item.subtotal}
     </Typography>
     </Box>
-    <Stack flexDirection="row" spacing={1}>
-        <IconButton onClick={()=>addToCart(item)}>
+    <Stack direction="row" spacing={1}>
+        <IconButton onClick={()=>addToCart(item.product_details)}>
             <AddIcon/>
         </IconButton>
         <Typography 
@@ -62,11 +70,11 @@ function CartItem({ item }) {
         >
             {item.quantity}
         </Typography>
-        <IconButton onClick={()=>decreaseQuantity(item.id)}>
+        <IconButton onClick={()=>decreaseQuantity(item)}>
             <RemoveIcon/>
         </IconButton>
         <IconButton color="error"
-        onClick={()=>removeFromCart(item.id)}>
+        onClick={()=>deleteCartItem(item)}>
             <DeleteIcon/>
         </IconButton>
 
@@ -75,5 +83,6 @@ function CartItem({ item }) {
 </Card>
     );
 }
+
 
 export default CartItem;

@@ -15,13 +15,13 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <SnackbarProvider>
-        <AuthProvider>
+      <AuthProvider>
+       <SnackbarProvider>
             <CartProvider>
                   <App />
             </CartProvider>
-        </AuthProvider>
          </SnackbarProvider>
+         </AuthProvider>
     </ThemeProvider>
   </BrowserRouter>
     

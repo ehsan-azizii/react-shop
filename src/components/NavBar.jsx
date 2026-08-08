@@ -110,20 +110,24 @@ function NavBar(){
             )
         }
             </Box>
-                <IconButton
-                component={Link}
-                to="/cart"
+               <IconButton
                 color="inherit"
-                >
+                onClick={() => {
+                    if (isAuthenticated) {
+                        navigate("/cart");
+                    } else {
+                        navigate("/login");
+                    }
+                }}
+                 >
                     <Badge
-                    badgeContent={totalItems}
-                    color="error"
-                    showZero
+                        badgeContent={totalItems}
+                        color="error"
+                        showZero
                     >
-                        <ShoppingCartIcon/>
+                        <ShoppingCartIcon />
                     </Badge>
-                </IconButton>
-            
+            </IconButton>
             </Toolbar>
         </AppBar>
     );
